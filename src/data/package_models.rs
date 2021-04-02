@@ -1,9 +1,9 @@
 use super::Coordinates;
 use serde::{Serialize,Deserialize};
-use uuid::Uuid;
+// use uuid::Uuid;
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Package{
-    id:uuid,
+    id:i32,
     height:f32,
     length:f32,
     width:f32,

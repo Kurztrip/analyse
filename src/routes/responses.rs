@@ -2,7 +2,7 @@ use rocket::{response, Request};
 use rocket::http::{ContentType, Status};
 use rocket::response::{Responder, Response};
 use rocket_contrib::json::JsonValue;
-use rocket_contrib::json;
+use crate::routes::catchers;
 
 #[derive(Debug)]
 pub struct ApiResponse {
@@ -10,22 +10,34 @@ pub struct ApiResponse {
     message: JsonValue,
 }
 impl ApiResponse {
+    pub fn new(message:JsonValue, status:Status) -> Self{
+        ApiResponse {
+            status,
+            message,
+        }
+    }
     pub fn ok(message: JsonValue) -> Self {
         ApiResponse {
             status: Status::Ok,
             message,
         }
     }
-    pub fn err(message: JsonValue) -> Self {
+    pub fn created(message: JsonValue) -> Self {
         ApiResponse {
-            status: Status::InternalServerError,
+            status: Status::Created,
             message,
+        }
+    }
+    pub fn not_found() -> Self {
+        ApiResponse {
+            status: Status::NotFound,
+            message: catchers::not_found(),
         }
     }
     pub fn internal_err() -> Self {
         ApiResponse {
             status: Status::InternalServerError,
-            message: json!("Internal server error"),
+            message: catchers::internal_err()
         }
     }
 }

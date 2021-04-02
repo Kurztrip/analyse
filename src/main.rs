@@ -1,4 +1,4 @@
-use kurztrip_analise::rocket_builder;
+use kurztrip_analyse::rocket_builder;
 
 fn main() {
     rocket_builder().launch();

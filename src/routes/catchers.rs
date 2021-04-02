@@ -13,3 +13,10 @@ pub fn unprocessable_entity() -> JsonValue {
         "reason": "Unprocessable Entity"
     })
 }
+#[catch(500)]
+pub fn internal_err() -> JsonValue {
+    json!({
+        "status": "error",
+        "reason": "Internal server error"
+    })
+}

@@ -1,5 +1,5 @@
 [package]
-name = "kurztrip_analise"
+name = "kurztrip_analyse"
 version = "0.1.0"
 authors = ["Santiago <crvargaso@unal.edu.co>"]
 edition = "2018"
