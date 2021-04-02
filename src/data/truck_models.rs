@@ -13,7 +13,9 @@ pub struct Truck{
     fuel_type:FuelType,
     fuel_by_kilometer:f32,
     weight_capacity:f32,
-    volume_capacity:f32
+    volume_capacity:f32,
+    state:State,
+    warehouse:i32
 }
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TruckRequest{
@@ -22,7 +24,8 @@ pub struct TruckRequest{
     fuel_type:FuelType,
     fuel_by_kilometer:f32,
     weight_capacity:f32,
-    volume_capacity:f32
+    volume_capacity:f32,
+    warehouse:i32
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -31,7 +34,12 @@ pub enum FuelType{
     Gasoline,
     NaturalGas
 }
-
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum State{
+    Available,
+    Maintenance,
+    Unavailable
+}
 impl Truck{
     pub fn from_request(request:TruckRequest)->Truck{
         Truck{
@@ -43,7 +51,9 @@ impl Truck{
             fuel_type:request.fuel_type,
             fuel_by_kilometer:request.fuel_by_kilometer,
             weight_capacity:request.weight_capacity,
-            volume_capacity:request.volume_capacity
+            volume_capacity:request.volume_capacity,
+            state:State::Available,
+            warehouse:request.warehouse
         }
     }
 }

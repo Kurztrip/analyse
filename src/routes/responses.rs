@@ -28,6 +28,15 @@ impl ApiResponse {
             message,
         }
     }
+    pub fn duplicated_id() -> Self {
+        ApiResponse {
+            status:Status::BadRequest,
+            message:json!({
+                "status": "error",
+                "reason": "The id already exists"
+            })
+        }
+    }
     pub fn not_found() -> Self {
         ApiResponse {
             status: Status::NotFound,

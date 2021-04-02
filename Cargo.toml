@@ -10,7 +10,7 @@ edition = "2018"
 rocket = "0.4.7"
 serde = { version="1.0.125", features=["derive"] }
 dotenv = "0.15.0"
-uuid = {version="0.8.2",features=["serde","v4"]}
+#uuid = {version="0.8.2",features=["serde","v4"]}
 
 [dependencies.rocket_contrib]
 version = "0.4.7"
