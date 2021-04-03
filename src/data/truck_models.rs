@@ -25,7 +25,7 @@ pub struct TruckRequest{
     fuel_by_kilometer:f32,
     weight_capacity:f32,
     volume_capacity:f32,
-    warehouse:i32
+    pub warehouse:i32
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -39,6 +39,16 @@ pub enum State{
     Available,
     Maintenance,
     Unavailable
+}
+impl State{
+    pub fn from_string(state:&str)->Result<State,String>{
+        match state{
+            "Available"=>Ok(State::Available),
+            "Maintenance"=>Ok(State::Maintenance),
+            "Unavailable"=>Ok(State::Unavailable),
+            _=>Err(format!("{} is not a state",state))
+        }
+    }
 }
 impl Truck{
     pub fn from_request(request:TruckRequest)->Truck{

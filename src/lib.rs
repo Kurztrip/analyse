@@ -16,7 +16,8 @@ pub fn rocket_builder()->rocket::Rocket{
             routes::trucks::get_trucks,
             routes::trucks::update_truck,
             routes::trucks::get_truck,
-            routes::trucks::delete_truck
+            routes::trucks::delete_truck,
+            routes::trucks::change_truck_state
         ])
         .mount("/packages", routes![
             routes::packages::add_package,
@@ -26,13 +27,14 @@ pub fn rocket_builder()->rocket::Rocket{
         .mount("/warehouses", routes![
             routes::warehouses::add_warehouse,
             routes::warehouses::get_warehouse,
-            routes::warehouses::delete_warehouse
+            routes::warehouses::delete_warehouse,
+            routes::warehouses::get_trucks_in_warehouse,
+            routes::warehouses::get_packages_in_warehouse
         ])
         .register(catchers!(
             routes::catchers::not_found,
             routes::catchers::unprocessable_entity,
             routes::catchers::internal_err
-
         ))
         .manage(client)
 }

@@ -1,5 +1,5 @@
 use crate::database_configuration::DBConnection;
-use crate::repositories::warehouses;
+use crate::repositories::{warehouses,trucks, packages};
 use rocket_contrib::json::Json;
 use crate::routes::responses::ApiResponse;
 use crate::data::warehouse_models::{WarehouseRequest, Warehouse};
@@ -7,6 +7,20 @@ use crate::data::warehouse_models::{WarehouseRequest, Warehouse};
 #[get("/<id>")]
 pub fn get_warehouse(conn:DBConnection, id:usize)->ApiResponse{
     match warehouses::get(&*conn, id as i32){
+        Ok(result)=>ApiResponse::ok(json!(result)),
+        Err(err)=>err
+    }
+}
+#[get("/<id>/trucks")]
+pub fn get_trucks_in_warehouse(conn:DBConnection, id:usize)->ApiResponse{
+    match trucks::get_all_from_warehouse(&*conn, id as i32){
+        Ok(result)=>ApiResponse::ok(json!(result)),
+        Err(err)=>err
+    }
+}
+#[get("/<id>/packages")]
+pub fn get_packages_in_warehouse(conn:DBConnection, id:usize)->ApiResponse{
+    match packages::get_all_from_warehouse(&*conn, id as i32){
         Ok(result)=>ApiResponse::ok(json!(result)),
         Err(err)=>err
     }

@@ -18,7 +18,7 @@ pub struct RequestPackage{
     destination:Coordinates,
     receiver:String,
     sender:String,
-    warehouse:i32
+    pub warehouse:i32
 }
 impl Package{
     pub fn from_request(request:RequestPackage)->Package {

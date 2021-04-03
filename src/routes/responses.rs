@@ -28,6 +28,24 @@ impl ApiResponse {
             message,
         }
     }
+    pub fn invalid_warehouse() -> Self {
+        ApiResponse {
+            status:Status::BadRequest,
+            message:json!({
+                "status": "error",
+                "reason": "The warehouse id doesn't exist"
+            })
+        }
+    }
+    pub fn invalid_state(e:String) -> Self {
+        ApiResponse {
+            status:Status::BadRequest,
+            message:json!({
+                "status": "error",
+                "reason": e
+            })
+        }
+    }
     pub fn duplicated_id() -> Self {
         ApiResponse {
             status:Status::BadRequest,

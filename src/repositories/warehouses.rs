@@ -16,5 +16,9 @@ pub fn add(conn: &Database, warehouse:Warehouse) -> Result<Warehouse,ApiResponse
     get(conn, id)
 }
 pub fn delete(conn: &Database, warehouse_id:i32) -> Result<i8,ApiResponse>{
-    super::delete_from_db(conn.collection(COLLECTION), warehouse_id)
+    match super::delete_from_db(conn.collection(COLLECTION), warehouse_id){
+        Ok(_)=>super::trucks::delete_all_from_warehouse(conn,warehouse_id),
+        Err(e)=>Err(e)
+    }
+
 }
