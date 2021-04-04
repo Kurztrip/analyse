@@ -32,6 +32,13 @@ pub fn add_warehouse(conn:DBConnection, warehouse:Json<WarehouseRequest>)->ApiRe
         Err(err)=>err
     }
 }
+#[put("/<id>",data="<warehouse>")]
+pub fn update_warehouse(conn:DBConnection, warehouse:Json<WarehouseRequest>, id:usize)->ApiResponse{
+    match warehouses::update(&*conn, Warehouse::from_request(warehouse.into_inner()), id as i32){
+        Ok(result)=>ApiResponse::ok(json!(result)),
+        Err(err)=>err
+    }
+}
 #[delete("/<id>")]
 pub fn delete_warehouse(conn:DBConnection, id:usize)->ApiResponse{
     match warehouses::delete(&*conn, id as i32){

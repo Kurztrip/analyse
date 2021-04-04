@@ -22,12 +22,14 @@ pub fn rocket_builder()->rocket::Rocket{
         .mount("/packages", routes![
             routes::packages::add_package,
             routes::packages::get_package,
+            routes::packages::update_package,
             routes::packages::delete_package
         ])
         .mount("/warehouses", routes![
             routes::warehouses::add_warehouse,
             routes::warehouses::get_warehouse,
             routes::warehouses::delete_warehouse,
+            routes::warehouses::update_warehouse,
             routes::warehouses::get_trucks_in_warehouse,
             routes::warehouses::get_packages_in_warehouse
         ])

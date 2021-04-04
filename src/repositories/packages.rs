@@ -18,6 +18,13 @@ pub fn get_all_from_warehouse(conn: &Database, warehouse_id:i32) ->Result<Vec<Pa
 pub fn get(conn: &Database, package_id:i32) -> Result<Package,ApiResponse>{
     super::get_one_from_db(conn.collection(COLLECTION), Some(doc!{"_id":package_id}))
 }
+pub fn update(conn: &Database, package:Package, package_id:i32) ->Result<Package,ApiResponse>{
+    super::replace_in_db(
+        conn.collection(COLLECTION),
+        package_id,
+        bson::to_bson(&package).unwrap().as_document().unwrap().to_owned()
+    )
+}
 pub fn delete(conn: &Database, package_id:i32) -> Result<i8,ApiResponse>{
     super::delete_from_db(conn.collection(COLLECTION), package_id)
 }

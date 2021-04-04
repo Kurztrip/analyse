@@ -39,7 +39,7 @@ pub fn update_truck(conn:DBConnection, truck:Json<TruckRequest>, id:usize)->ApiR
         Err(err)=>err
     }
 }
-#[put("/<id>?<state>")]
+#[put("/<id>/state?<state>")]
 pub fn change_truck_state(conn:DBConnection, state:&RawStr, id:usize)->ApiResponse{
     match State::from_string(state){
         Ok(new_state)=>{

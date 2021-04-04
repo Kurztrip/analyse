@@ -12,7 +12,7 @@ pub struct Package{
     warehouse:i32
 }
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct RequestPackage{
+pub struct PackageRequest {
     id:i32,
     volume:f32,
     destination:Coordinates,
@@ -21,7 +21,7 @@ pub struct RequestPackage{
     pub warehouse:i32
 }
 impl Package{
-    pub fn from_request(request:RequestPackage)->Package {
+    pub fn from_request(request: PackageRequest) ->Package {
         Package{
             id:request.id,
             volume:request.volume,
