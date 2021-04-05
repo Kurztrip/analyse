@@ -1,42 +1,42 @@
 swagger: "2.0"
 info:
-  description: "Esta es una API que toma la información de paquetes, camiones y centros de operaciones para generar rutas ed entrega"
+  description: "This API takes information abour Warehouses, trucks and packages for the creation of routes"
   title: Kurztrip Analyse
   version: '1.0'
 tags:
-  - name: "Camiones"
-    description: "Añadir, modificar y eliminar camiones"
-  - name: "Paquetes"
-    description: "Añadir, modificar y eliminar paquetes"
-  - name: "Centros de operaciones"
-    description: "Añadir, modificar y eliminar Centros de operaciones"
+  - name: "Trucks"
+    description: "Add, modify and delete Trucks information"
+  - name: "Packages"
+    description: "Add, modify and delete Packages information"
+  - name: "Warehouses"
+    description: "Add, modify and delete Warehouses information"
 paths:
   /trucks:
     get:
       tags:
-        - "Camiones"
-      summary: "Retorna todos los camiones"
+        - "Trucks"
+      summary: "Return all Trucks"
       description: ""
       operationId: "findTrucks"
       produces:
         - "application/json"
       responses:
         '200':
-          description: "Operación exitosa"
+          description: "Successful operation"
           schema:
             type: "array"
             items:
               $ref: "#/definitions/Truck"
     post:
       tags:
-        - "Camiones"
-      summary: "Añade un camion"
+        - "Trucks"
+      summary: "Adds a truck"
       description: ""
       operationId: "addTrucks"
       parameters:
         - in: "body"
           name: "body"
-          description: "Objeto camion que se desea añadir"
+          description: "Truck object that needs to be added"
           required: true
           schema:
             $ref: "#/definitions/TruckRequest"
@@ -44,11 +44,11 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Operación exitosa"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Truck"
         '400':
-          description: "Centro de operaciones invalido o id duplicado"
+          description: "invalid Warehouse or duplicated Id"
           schema:
             properties:
               state:
@@ -58,7 +58,7 @@ paths:
                 type: "string"
                 example: The warehouse id doesn't exist
         '422':
-          description: "El no se objeto se ajusta a la especificación"
+          description: "The body does not adjust to the required specification"
           schema:
             properties:
               state:
@@ -70,7 +70,7 @@ paths:
   /trucks/{id}:
     get:
       tags:
-        - "Camiones"
+        - "Trucks"
       summary: "Finds a truck"
       description: ""
       operationId: "findTruck"
@@ -100,7 +100,7 @@ paths:
                 example: Not Found
     put:
       tags:
-        - "Camiones"
+        - "Trucks"
       summary: "updates a trucks"
       description: ""
       operationId: "updateTruck"
@@ -146,7 +146,7 @@ paths:
                 example: Not Found
     delete:
       tags:
-        - "Camiones"
+        - "Trucks"
       summary: "Deletes a truck"
       description: ""
       operationId: "deleteTruck"
@@ -178,7 +178,7 @@ paths:
   /trucks/{id}/state:
     put:
       tags:
-        - "Camiones"
+        - "Trucks"
       summary: "updates the state of a trucks"
       description: ""
       operationId: "updateState"
@@ -227,7 +227,7 @@ paths:
   /packages:
     get:
       tags:
-        - "Paquetes"
+        - "Packages"
       summary: "Finds all packages"
       description: ""
       operationId: "findPackages"
@@ -242,7 +242,7 @@ paths:
               $ref: "#/definitions/Package"
     post:
       tags:
-        - "Paquetes"
+        - "Packages"
       summary: "Adds a package"
       description: ""
       operationId: "addPackage"
@@ -257,7 +257,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Package"
         '400':
@@ -283,7 +283,7 @@ paths:
   /packages/{id}:
     get:
       tags:
-        - "Paquetes"
+        - "Packages"
       summary: "Finds a package"
       description: ""
       operationId: "findPackage"
@@ -298,7 +298,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Package"
         '404':
@@ -313,7 +313,7 @@ paths:
                 example: Not Found
     put:
       tags:
-        - "Paquetes"
+        - "Packages"
       summary: "Updates a package"
       description: ""
       operationId: "updatePackage"
@@ -334,7 +334,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Package"
         '400':
@@ -359,7 +359,7 @@ paths:
                 example: Unprocessable Entity
     delete:
       tags:
-        - "Paquetes"
+        - "Packages"
       summary: "Deletes a package"
       description: ""
       operationId: "deletePackage"
@@ -374,7 +374,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             type: "integer"
             example: 1
@@ -391,7 +391,7 @@ paths:
   /warehouses:
     get:
       tags:
-        - "Centros de operaciones"
+        - "Warehouses"
       summary: "Finds all packages"
       description: ""
       operationId: "findWarehouses"
@@ -399,14 +399,14 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             type: array
             items:
               $ref: "#/definitions/Warehouse"
     post:
       tags:
-        - "Centros de operaciones"
+        - "Warehouses"
       summary: "Adds a package"
       description: ""
       operationId: "addWarehouse"
@@ -421,7 +421,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Warehouse"
         '400':
@@ -447,7 +447,7 @@ paths:
   /warehouses/{id}:
     get:
       tags:
-        - "Centros de operaciones"
+        - "Warehouses"
       summary: "Finds a package"
       description: ""
       operationId: "findWarehouse"
@@ -462,7 +462,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Warehouse"
         '404':
@@ -477,7 +477,7 @@ paths:
                 example: Not Found
     put:
       tags:
-        - "Centros de operaciones"
+        - "Warehouses"
       summary: "Updates a warehouse"
       description: ""
       operationId: "updateWarehouse"
@@ -498,7 +498,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Warehouse"
         '422':
@@ -513,7 +513,7 @@ paths:
                 example: Unprocessable Entity
     delete:
       tags:
-        - "Centros de operaciones"
+        - "Warehouses"
       summary: "Deletes a warehouse"
       description: ""
       operationId: "deleteWarehouse"
@@ -528,7 +528,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             type: "integer"
             example: 1
@@ -545,15 +545,15 @@ paths:
   /warehouses/<id>/trucks:
     get:
       tags:
-        - "Centros de operaciones"
-      summary: "Retorna todos los camiones del centro de operaciones"
+        - "Warehouses"
+      summary: "Returns all the Trucks in a Warehouse"
       description: ""
       operationId: "findTrucksInWarehouse"
       produces:
         - "application/json"
       responses:
         '200':
-          description: "Operación exitosa"
+          description: "Successful operation"
           schema:
             type: "array"
             items:
@@ -561,7 +561,7 @@ paths:
   /warehouses/<id>/packages:
     get:
       tags:
-        - "Centros de operaciones"
+        - "Warehouses"
       summary: "Finds all the packages in a warehouse"
       description: ""
       operationId: "findPackagesInWarehouse"
