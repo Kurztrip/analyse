@@ -677,6 +677,7 @@ definitions:
     required:
       - "id"
       - "volume"
+      - "weight"
       - "destination"
       - "receiver"
       - "sender"

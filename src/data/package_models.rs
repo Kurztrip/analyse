@@ -6,6 +6,7 @@ pub struct Package{
     #[serde(rename = "_id")]
     id:i32,
     volume:f32,
+    weight:f32,
     destination:Coordinates,
     receiver:String,
     sender:String,
@@ -15,6 +16,7 @@ pub struct Package{
 pub struct PackageRequest {
     id:i32,
     volume:f32,
+    weight:f32,
     destination:Coordinates,
     receiver:String,
     sender:String,
@@ -25,6 +27,7 @@ impl Package{
         Package{
             id:request.id,
             volume:request.volume,
+            weight:request.weight,
             destination:request.destination,
             receiver:request.receiver,
             sender:request.sender,
