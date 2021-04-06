@@ -21,6 +21,7 @@ pub fn rocket_builder()->rocket::Rocket{
         ])
         .mount("/packages", routes![
             routes::packages::add_package,
+            routes::packages::get_all_packages,
             routes::packages::get_package,
             routes::packages::update_package,
             routes::packages::delete_package

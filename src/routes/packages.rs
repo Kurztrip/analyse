@@ -4,6 +4,13 @@ use crate::data::package_models::{Package, PackageRequest};
 use rocket_contrib::json::Json;
 use crate::routes::responses::ApiResponse;
 
+#[get("/")]
+pub fn get_all_packages(conn:DBConnection)->ApiResponse{
+    match packages::get_all(&*conn){
+        Ok(result)=>ApiResponse::ok(json!(result)),
+        Err(err)=>err
+    }
+}
 #[get("/<id>")]
 pub fn get_package(conn:DBConnection, id:usize)->ApiResponse{
     match packages::get(&*conn, id as i32){
