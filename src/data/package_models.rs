@@ -23,7 +23,8 @@ pub struct PackageRequest {
     pub warehouse:i32
 }
 impl Package{
-    pub fn from_request(request: PackageRequest) ->Package {
+    pub fn from_request(mut request: PackageRequest) ->Package {
+        request.destination.des = true;
         Package{
             id:request.id,
             volume:request.volume,

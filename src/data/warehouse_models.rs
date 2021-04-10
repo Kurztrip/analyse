@@ -16,7 +16,8 @@ pub struct WarehouseRequest{
     location:Coordinates
 }
 impl Warehouse{
-    pub fn from_request(request:WarehouseRequest)->Warehouse {
+    pub fn from_request(mut request:WarehouseRequest)->Warehouse {
+        request.location.des = true;
         Warehouse{
             id:request.id,
             name:request.name,

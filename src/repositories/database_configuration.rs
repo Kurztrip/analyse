@@ -3,26 +3,6 @@ use dotenv::dotenv;
 use mongodb::{bson::doc,sync::{Client,Database}};
 use std::env;
 use std::error::Error;
-use std::ops::Deref;
-use rocket::request::FromRequest;
-use rocket::{Request, request, State};
-
-#[derive(Debug)]
-pub struct DBConnection(Database);
-
-impl Deref for DBConnection{
-    type Target = Database;
-    fn deref(&self) -> &Self::Target {
-        &self.0
-    }
-}
-impl<'a, 'r> FromRequest<'a, 'r> for DBConnection {
-    type Error = ();
-
-    fn from_request(request: &'a Request<'r>) -> request::Outcome<DBConnection, ()> {
-        request.guard::<State<Database>>().map(|database|DBConnection(database.clone()))
-    }
-}
 
 pub fn init() ->Result<Database,Box<dyn Error>>{
     dotenv().ok();
