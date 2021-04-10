@@ -2,14 +2,16 @@
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate rocket_contrib;
 #[macro_use] extern crate mongodb;
+
+use repositories::database_configuration;
+
 pub mod routes;
 pub mod data;
 pub mod repositories;
-pub mod database_configuration;
 
 pub fn rocket_builder()->rocket::Rocket{
     let client = database_configuration::init()
-        .unwrap_or_else(|error|panic!("Error al conectar:{} ",error));
+        .unwrap_or_else(|error|panic!("Error connecting to DB:{} ",error));
     rocket::ignite()
         .mount("/trucks", routes![
             routes::trucks::add_truck,
@@ -28,6 +30,7 @@ pub fn rocket_builder()->rocket::Rocket{
         ])
         .mount("/warehouses", routes![
             routes::warehouses::add_warehouse,
+            routes::warehouses::get_all_warehouses,
             routes::warehouses::get_warehouse,
             routes::warehouses::delete_warehouse,
             routes::warehouses::update_warehouse,
