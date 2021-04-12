@@ -3,6 +3,8 @@ use rocket::http::{ContentType, Status};
 use rocket::response::{Responder, Response};
 use rocket_contrib::json::JsonValue;
 use crate::routes::catchers;
+use crate::logic::errors::LogicError;
+use crate::logic::errors::LogicError::*;
 
 #[derive(Debug)]
 pub struct ApiResponse {
@@ -74,5 +76,16 @@ impl<'r> Responder<'r> for ApiResponse {
             .status(self.status)
             .header(ContentType::JSON)
             .ok()
+    }
+}
+impl From<LogicError> for ApiResponse{
+    fn from(error:LogicError)->ApiResponse{
+        match error{
+            InvalidWarehouse=>ApiResponse::invalid_warehouse(),
+            InvalidState(state)=>ApiResponse::invalid_state(state),
+            DuplicatedID=>ApiResponse::duplicated_id(),
+            NotFound=>ApiResponse::not_found(),
+            _=>ApiResponse::internal_err()
+        }
     }
 }

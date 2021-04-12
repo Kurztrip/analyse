@@ -8,9 +8,10 @@ use repositories::database_configuration;
 pub mod routes;
 pub mod data;
 pub mod repositories;
+pub mod logic;
 
 pub fn rocket_builder()->rocket::Rocket{
-    let client = database_configuration::init()
+    let database = database_configuration::init()
         .unwrap_or_else(|error|panic!("Error connecting to DB:{} ",error));
     rocket::ignite()
         .mount("/trucks", routes![
@@ -35,12 +36,14 @@ pub fn rocket_builder()->rocket::Rocket{
             routes::warehouses::delete_warehouse,
             routes::warehouses::update_warehouse,
             routes::warehouses::get_trucks_in_warehouse,
-            routes::warehouses::get_packages_in_warehouse
+            routes::warehouses::get_packages_in_warehouse,
+            routes::warehouses::create_routes
         ])
         .register(catchers!(
             routes::catchers::not_found,
             routes::catchers::unprocessable_entity,
-            routes::catchers::internal_err
+            routes::catchers::internal_err,
+            routes::catchers::bad_request
         ))
-        .manage(client)
+        .manage(database)
 }

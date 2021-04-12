@@ -7,7 +7,7 @@ use serde::ser::SerializeStruct;
 #[derive(Deserialize, Debug, Clone)]
 pub struct Coordinates {
     #[serde(rename = "type")]
-    #[serde(skip_deserializing)]
+    #[serde(default = "default")]
     obj_type:String,
     coordinates:[f64;2],
     #[serde(skip)]
@@ -27,12 +27,7 @@ impl Serialize for Coordinates {
     }
 }
 
-impl Default for Coordinates{
-    fn default()->Self{
-        Coordinates{
-            obj_type: "Point".to_string(),
-            coordinates: [0.0,0.0],
-            des:false
-        }
-    }
+
+fn default()->String{
+        "Point".to_string()
 }

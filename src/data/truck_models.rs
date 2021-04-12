@@ -5,7 +5,7 @@ use serde::{Serialize,Deserialize};
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Truck{
     #[serde(rename = "_id")]
-    pub id:i32,
+    id:i32,
     packages: Vec<Package>,
     route: Vec<Coordinates>,
     fuel:f32,
@@ -17,6 +17,44 @@ pub struct Truck{
     state:State,
     warehouse:i32
 }
+
+impl Truck {
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+    pub fn packages(&self) -> &Vec<Package> {
+        &self.packages
+    }
+    pub fn route(&self) -> &Vec<Coordinates> {
+        &self.route
+    }
+    pub fn fuel(&self) -> f32 {
+        self.fuel
+    }
+    pub fn fuel_capacity(&self) -> f32 {
+        self.fuel_capacity
+    }
+    pub fn fuel_type(&self) -> &FuelType {
+        &self.fuel_type
+    }
+    pub fn fuel_by_kilometer(&self) -> f32 {
+        self.fuel_by_kilometer
+    }
+    pub fn weight_capacity(&self) -> f32 {
+        self.weight_capacity
+    }
+    pub fn volume_capacity(&self) -> f32 {
+        self.volume_capacity
+    }
+    pub fn state(&self) -> &State {
+        &self.state
+    }
+    pub fn warehouse(&self) -> i32 {
+        self.warehouse
+    }
+}
+
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TruckRequest{
     id:i32,

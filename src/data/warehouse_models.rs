@@ -9,6 +9,18 @@ pub struct Warehouse{
     location:Coordinates
 }
 
+impl Warehouse {
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+    pub fn location(&self) -> &Coordinates {
+        &self.location
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct WarehouseRequest{
     id:i32,

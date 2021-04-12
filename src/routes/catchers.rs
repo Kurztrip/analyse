@@ -1,4 +1,5 @@
 use rocket_contrib::json::JsonValue;
+
 #[catch(404)]
 pub fn not_found() -> JsonValue {
     json!({
@@ -18,5 +19,12 @@ pub fn internal_err() -> JsonValue {
     json!({
         "status": "error",
         "reason": "Internal server error"
+    })
+}
+#[catch(400)]
+pub fn bad_request() -> JsonValue {
+    json!({
+        "status": "error",
+        "reason": "The request could not be understood by the server due to malformed syntax."
     })
 }
