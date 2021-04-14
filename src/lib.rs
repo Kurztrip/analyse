@@ -4,7 +4,7 @@ extern crate rocket_contrib;
 
 use repositories::database_configuration;
 
-pub mod routes;
+pub mod controllers;
 pub mod data;
 pub mod repositories;
 pub mod logic;
@@ -14,35 +14,36 @@ pub fn rocket_builder()->rocket::Rocket{
         .unwrap_or_else(|error|panic!("Error connecting to DB:{} ",error));
     rocket::ignite()
         .mount("/trucks", routes![
-            routes::trucks::add_truck,
-            routes::trucks::get_trucks,
-            routes::trucks::update_truck,
-            routes::trucks::get_truck,
-            routes::trucks::delete_truck,
-            routes::trucks::change_truck_state
+            controllers::trucks::add_truck,
+            controllers::trucks::get_trucks,
+            controllers::trucks::update_truck,
+            controllers::trucks::get_truck,
+            controllers::trucks::delete_truck,
+            controllers::trucks::change_truck_state,
+            controllers::trucks::end_route
         ])
         .mount("/packages", routes![
-            routes::packages::add_package,
-            routes::packages::get_all_packages,
-            routes::packages::get_package,
-            routes::packages::update_package,
-            routes::packages::delete_package
+            controllers::packages::add_package,
+            controllers::packages::get_all_packages,
+            controllers::packages::get_package,
+            controllers::packages::update_package,
+            controllers::packages::delete_package
         ])
         .mount("/warehouses", routes![
-            routes::warehouses::add_warehouse,
-            routes::warehouses::get_all_warehouses,
-            routes::warehouses::get_warehouse,
-            routes::warehouses::delete_warehouse,
-            routes::warehouses::update_warehouse,
-            routes::warehouses::get_trucks_in_warehouse,
-            routes::warehouses::get_packages_in_warehouse,
-            routes::warehouses::create_routes
+            controllers::warehouses::add_warehouse,
+            controllers::warehouses::get_all_warehouses,
+            controllers::warehouses::get_warehouse,
+            controllers::warehouses::delete_warehouse,
+            controllers::warehouses::update_warehouse,
+            controllers::warehouses::get_trucks_in_warehouse,
+            controllers::warehouses::get_packages_in_warehouse,
+            controllers::warehouses::create_routes
         ])
         .register(catchers!(
-            routes::catchers::not_found,
-            routes::catchers::unprocessable_entity,
-            routes::catchers::internal_err,
-            routes::catchers::bad_request
+            controllers::catchers::not_found,
+            controllers::catchers::unprocessable_entity,
+            controllers::catchers::internal_err,
+            controllers::catchers::bad_request
         ))
         .manage(database)
 }

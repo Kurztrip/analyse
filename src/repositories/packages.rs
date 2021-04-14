@@ -24,11 +24,12 @@ pub fn get_all_from_warehouse(conn: &DBConnection, warehouse_id:i32) ->Result<Ve
 pub fn get_all_near_from_warehouse(conn: &DBConnection, warehouse_id:i32, coordinates:&Coordinates) ->Result<Vec<Package>,LogicError>{
     let mut filter = Map::new();
     filter.insert("warehouse".to_string(),Value::Number(Number::from(warehouse_id)));
-    conn.get_from_near(COLLECTION,
+    let result :Vec<DatabasePackage>= conn.get_from_near(COLLECTION,
                        Some(filter),
                        "destination".to_string(),
                        DatabaseCoordinates::from(coordinates.clone())
-    )
+    )?;
+    Ok(result.iter().map(|p|p.to_owned().into()).collect())
 }
 pub fn get_all(conn: &DBConnection) ->Result<Vec<Package>,LogicError>{
     let result:Vec<DatabasePackage>=conn.get_many_from_db(COLLECTION,None)?;

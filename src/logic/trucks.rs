@@ -28,6 +28,14 @@ pub fn change_truck_state(conn:DBConnection, state:String, id:i32)->Result<Truck
         Err(e)=>Err(LogicError::InvalidState(e))
     }
 }
+pub fn end_route(conn:DBConnection, id:i32)->Result<Truck,LogicError>{
+    let truck = trucks::get(&conn, id )?;
+    if truck.packages().is_empty(){
+        Err(LogicError::NotCurrentRoute)
+    }else{
+        trucks::end_route(&conn,id)
+    }
+}
 pub fn delete_truck(conn:DBConnection, id:i32)->Result<i8,LogicError>{
     trucks::delete(&conn, id)
 }

@@ -1,6 +1,6 @@
 use crate::repositories::DBConnection;
 use rocket_contrib::json::Json;
-use crate::routes::responses::ApiResponse;
+use crate::controllers::responses::ApiResponse;
 use crate::data::warehouse_models::WarehouseRequest;
 use crate::logic::{warehouses,routes};
 use rocket_contrib::json;
@@ -56,7 +56,7 @@ pub fn delete_warehouse(conn:DBConnection, id:usize)->ApiResponse{
 #[get("/<id>/create-route")]
 pub fn create_routes(conn:DBConnection, id:usize)->ApiResponse{
     match routes::generate_route(&conn,id as i32){
-        Ok(_)=>ApiResponse::ok(json!(1)),
+        Ok(truck)=>ApiResponse::ok(json!(truck)),
         Err(err)=>ApiResponse::from(err)
     }
 }

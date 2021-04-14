@@ -2,7 +2,7 @@ use crate::repositories::DBConnection;
 use crate::logic::packages;
 use crate::data::package_models::PackageRequest;
 use rocket_contrib::json::Json;
-use crate::routes::responses::ApiResponse;
+use crate::controllers::responses::ApiResponse;
 use rocket_contrib::json;
 
 #[get("/")]

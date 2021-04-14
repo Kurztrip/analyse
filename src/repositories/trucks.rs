@@ -4,7 +4,7 @@ use crate::data::package_models::Package;
 use crate::logic::errors::LogicError;
 use super::serde_json::{Value, Map, Number};
 use super::serde_json::json;
-use crate::repositories::database_models::DatabaseTruck;
+use crate::repositories::database_models::{DatabaseTruck, DatabaseCoordinates, DatabasePackage};
 
 
 const COLLECTION:&str="trucks";
@@ -17,6 +17,14 @@ pub fn get_all(conn: &DBConnection) ->Result<Vec<Truck>,LogicError>{
 pub fn get_all_from_warehouse(conn: &DBConnection, warehouse_id:i32) ->Result<Vec<Truck>,LogicError>{
     let mut filter = Map::new();
     filter.insert("warehouse".to_string(),Value::Number(Number::from(warehouse_id)));
+    let result : Vec<DatabaseTruck>=conn.get_many_from_db(COLLECTION, Some(filter))?;
+    Ok(result.iter().map(|p|p.to_owned().into()).collect())
+}
+pub fn get_all_available_from_warehouse(conn: &DBConnection, warehouse_id:i32) ->Result<Vec<Truck>,LogicError>{
+    let mut filter = Map::new();
+    filter.insert("warehouse".to_string(),Value::Number(Number::from(warehouse_id)));
+    filter.insert("route".to_string(),json!([]));
+    filter.insert("state".to_string(),json!(State::Available));
     let result : Vec<DatabaseTruck>=conn.get_many_from_db(COLLECTION, Some(filter))?;
     Ok(result.iter().map(|p|p.to_owned().into()).collect())
 }
@@ -45,10 +53,21 @@ pub fn update_state(conn: &DBConnection, state:State, truck_id:i32) ->Result<Tru
     )?;
     Ok(result.into())
 }
+pub fn end_route(conn: &DBConnection, truck_id:i32) ->Result<Truck,LogicError>{
+    let mut update = Map::new();
+    update.insert("route".to_string(),json!([]));
+    update.insert("packages".to_string(),json!([]));
+    let result:DatabaseTruck = conn.update_in_db(
+        COLLECTION,
+        truck_id,
+        update
+    )?;
+    Ok(result.into())
+}
 pub fn add_to_route(conn: &DBConnection, package:Package, truck_id:i32) ->Result<Truck,LogicError>{
     let mut update = Map::new();
-    update.insert("route".to_string(),json!(&package.destination()));
-    update.insert("packages".to_string(),json!(&package));
+    update.insert("route".to_string(),json!( &DatabaseCoordinates::from(package.destination().clone())));
+    update.insert("packages".to_string(),json!(&DatabasePackage::from(package)));
     let result : DatabaseTruck=conn.add_to_array(
         COLLECTION,
         truck_id,

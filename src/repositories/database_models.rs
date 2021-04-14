@@ -136,20 +136,16 @@ pub struct DatabasePackage{
     volume:f32,
     weight:f32,
     destination:DatabaseCoordinates,
-    receiver:String,
-    sender:String,
     warehouse:i32
 }
 
 impl DatabasePackage {
-    pub fn new(id: i32, volume: f32, weight: f32, destination: DatabaseCoordinates, receiver: String, sender: String, warehouse: i32) -> Self {
+    pub fn new(id: i32, volume: f32, weight: f32, destination: DatabaseCoordinates, warehouse: i32) -> Self {
         DatabasePackage {
             id,
             volume,
             weight,
             destination,
-            receiver,
-            sender,
             warehouse
         }
     }
@@ -161,8 +157,6 @@ impl From<Package> for DatabasePackage{
             package.volume(),
             package.weight(),
             package.destination().to_owned().into(),
-            package.receiver().to_string(),
-            package.sender().to_string(),
             package.warehouse()
         )
     }
@@ -174,8 +168,6 @@ impl From<DatabasePackage> for Package{
             package.volume,
             package.weight,
             package.destination.into(),
-            package.receiver,
-            package.sender,
             package.warehouse
         )
     }

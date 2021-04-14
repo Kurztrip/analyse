@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/kurztrip_analise.iml" filepath="$PROJECT_DIR$/.idea/kurztrip_analise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/kurztrip_analyse.iml" filepath="$PROJECT_DIR$/.idea/kurztrip_analyse.iml" />
     </modules>
   </component>
 </project>

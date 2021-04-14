@@ -5,5 +5,7 @@ pub enum LogicError{
     InvalidState(String),
     DuplicatedID,
     NotFound,
+    InsufficientTrucks,
+    NotCurrentRoute,
     InternalError(Box<dyn Error>)
 }

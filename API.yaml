@@ -4,6 +4,8 @@ info:
   title: Kurztrip Analyse
   version: '1.0'
 host: localhost:8000
+schemes:
+  - http
 basePath: /
 tags:
   - name: "Trucks"

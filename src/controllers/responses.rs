@@ -2,7 +2,7 @@ use rocket::{response, Request};
 use rocket::http::{ContentType, Status};
 use rocket::response::{Responder, Response};
 use rocket_contrib::json::JsonValue;
-use crate::routes::catchers;
+use crate::controllers::catchers;
 use crate::logic::errors::LogicError;
 use crate::logic::errors::LogicError::*;
 use rocket_contrib::json;
@@ -70,6 +70,24 @@ impl ApiResponse {
             message: catchers::internal_err()
         }
     }
+    pub fn insufficient_trucks() -> Self {
+        ApiResponse {
+            status: Status::NotAcceptable,
+            message: json!({
+                "status": "error",
+                "reason": "There are not trucks available"
+            })
+        }
+    }
+    pub fn no_current_route()->ApiResponse{
+        ApiResponse {
+            status: Status::NotAcceptable,
+            message: json!({
+                "status": "error",
+                "reason": "The selected truck is not in route"
+            })
+        }
+    }
 }
 impl<'r> Responder<'r> for ApiResponse {
     fn respond_to(self, req: &Request) -> response::Result<'r> {
@@ -86,6 +104,8 @@ impl From<LogicError> for ApiResponse{
             InvalidState(state)=>ApiResponse::invalid_state(state),
             DuplicatedID=>ApiResponse::duplicated_id(),
             NotFound=>ApiResponse::not_found(),
+            InsufficientTrucks=>ApiResponse::insufficient_trucks(),
+            NotCurrentRoute=>ApiResponse::no_current_route(),
             _=>ApiResponse::internal_err()
         }
     }
