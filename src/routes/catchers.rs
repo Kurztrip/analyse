@@ -1,4 +1,5 @@
 use rocket_contrib::json::JsonValue;
+use rocket_contrib::json;
 
 #[catch(404)]
 pub fn not_found() -> JsonValue {

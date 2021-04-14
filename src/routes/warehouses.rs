@@ -3,7 +3,7 @@ use rocket_contrib::json::Json;
 use crate::routes::responses::ApiResponse;
 use crate::data::warehouse_models::WarehouseRequest;
 use crate::logic::{warehouses,routes};
-
+use rocket_contrib::json;
 #[get("/<id>")]
 pub fn get_warehouse(conn:DBConnection, id:usize)->ApiResponse{
     match warehouses::get_warehouse(conn, id as i32){

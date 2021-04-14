@@ -4,7 +4,6 @@ use serde::{Serialize,Deserialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Truck{
-    #[serde(rename = "_id")]
     id:i32,
     packages: Vec<Package>,
     route: Vec<Coordinates>,
@@ -16,6 +15,12 @@ pub struct Truck{
     volume_capacity:f32,
     state:State,
     warehouse:i32
+}
+
+impl Truck {
+    pub fn new(id: i32, packages: Vec<Package>, route: Vec<Coordinates>, fuel: f32, fuel_capacity: f32, fuel_type: FuelType, fuel_by_kilometer: f32, weight_capacity: f32, volume_capacity: f32, state: State, warehouse: i32) -> Self {
+        Truck { id, packages, route, fuel, fuel_capacity, fuel_type, fuel_by_kilometer, weight_capacity, volume_capacity, state, warehouse }
+    }
 }
 
 impl Truck {

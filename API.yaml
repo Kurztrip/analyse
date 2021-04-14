@@ -601,7 +601,12 @@ definitions:
       route:
         type: array
         items:
-          $ref: "#/definitions/Coordinates"
+          type: array
+          items:
+            type: "number"
+            format: "float"
+          minItems: 2
+          maxItems: 2
       fuel_capacity:
         type: "number"
         format: "float"
@@ -692,7 +697,12 @@ definitions:
         type: "number"
         format: "float"
       destination:
-        $ref: "#/definitions/Coordinates"
+        type: "array"
+        items:
+          type: "number"
+          format: "float"
+        minItems: 2
+        maxItems: 2
       receiver:
         type: "string"
       sender:
@@ -700,27 +710,18 @@ definitions:
       warehouse:
         type: "integer"
         format: "int32"
-  Coordinates:
+  Warehouse:
     required:
-      - "coordinates"
+      - "id"
+      - "location"
     properties:
-      coordinates:
+      id:
+        type: "integer"
+        format: "int32"
+      location:
         type: "array"
         items:
           type: "number"
           format: "float"
         minItems: 2
         maxItems: 2
-  Warehouse:
-    required:
-      - "id"
-      - "name"
-      - "location"
-    properties:
-      id:
-        type: "integer"
-        format: "int32"
-      name:
-        type: string
-      location:
-        $ref: "#/definitions/Coordinates"

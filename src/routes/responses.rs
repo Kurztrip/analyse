@@ -5,6 +5,7 @@ use rocket_contrib::json::JsonValue;
 use crate::routes::catchers;
 use crate::logic::errors::LogicError;
 use crate::logic::errors::LogicError::*;
+use rocket_contrib::json;
 
 #[derive(Debug)]
 pub struct ApiResponse {

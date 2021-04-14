@@ -1,9 +1,8 @@
 use super::Coordinates;
 use serde::{Serialize,Deserialize};
-// use uuid::Uuid;
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Package{
-    #[serde(rename = "_id")]
     id:i32,
     volume:f32,
     weight:f32,
@@ -11,6 +10,12 @@ pub struct Package{
     receiver:String,
     sender:String,
     warehouse:i32
+}
+
+impl Package {
+    pub fn new(id: i32, volume: f32, weight: f32, destination: Coordinates, receiver: String, sender: String, warehouse: i32) -> Self {
+        Package { id, volume, weight, destination, receiver, sender, warehouse }
+    }
 }
 
 impl Package {
@@ -48,8 +53,7 @@ pub struct PackageRequest {
     pub warehouse:i32
 }
 impl Package{
-    pub fn from_request(mut request: PackageRequest) ->Package {
-        request.destination.des = true;
+    pub fn from_request(request: PackageRequest) ->Package {
         Package{
             id:request.id,
             volume:request.volume,

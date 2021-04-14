@@ -4,7 +4,7 @@ use crate::logic::trucks;
 use rocket_contrib::json::Json;
 use crate::routes::responses::ApiResponse;
 use rocket::http::RawStr;
-
+use rocket_contrib::json;
 #[get("/")]
 pub fn get_trucks(conn:DBConnection)->ApiResponse{
     match trucks::get_trucks(conn){
