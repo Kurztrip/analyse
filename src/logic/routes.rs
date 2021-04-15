@@ -16,7 +16,7 @@ pub fn generate_route(conn:&DBConnection, warehouse_id:i32)->Result<Truck,LogicE
             if weight-&next[0].weight()>0.0 && volume-&next[0].volume()>0.0{
                 packages.push(next[0].clone());
                 repositories::trucks::add_to_route(conn,next[0].clone(),truck.id())?;
-                repositories::packages::delete(conn,next[0].id());
+                repositories::packages::delete(conn,next[0].id())?;
                 weight=weight-&next[0].weight();
                 volume=volume-&next[0].volume();
                 next = repositories::packages::get_all_near_from_warehouse(conn,warehouse_id,next[0].destination())?;

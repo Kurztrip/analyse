@@ -9,13 +9,13 @@ pub fn get_package(conn:DBConnection, id:i32)->Result<Package,LogicError>{
     packages::get(&conn, id )
 }
 pub fn add_package(conn:DBConnection, package:PackageRequest) ->Result<Package,LogicError>{
-    if let Err(LogicError::NotFound) = warehouses::get(&conn,package.clone().warehouse){
+    if let Err(LogicError::NotFound) = warehouses::get(&conn,package.clone().warehouse()){
         return Err(LogicError::InvalidWarehouse)
     }
     packages::add(&conn, Package::from_request(package))
 }
 pub fn update_package(conn:DBConnection, package:PackageRequest, id:i32)->Result<Package,LogicError>{
-    if let Err(LogicError::NotFound) = warehouses::get(&conn,package.clone().warehouse){
+    if let Err(LogicError::NotFound) = warehouses::get(&conn,package.clone().warehouse()){
         return Err(LogicError::InvalidWarehouse)
     }
     packages::update(&conn, Package::from_request(package), id as i32)

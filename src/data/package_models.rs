@@ -12,7 +12,7 @@ pub struct Package{
 
 impl Package {
     pub fn new(id: i32, volume: f32, weight: f32, destination: Coordinates, warehouse: i32) -> Self {
-        Package { id, volume, weight, destination, receiver, sender, warehouse }
+        Package { id, volume, weight, destination, warehouse }
     }
 }
 
@@ -40,8 +40,15 @@ pub struct PackageRequest {
     volume:f32,
     weight:f32,
     destination:Coordinates,
-    pub warehouse:i32
+    warehouse:i32
 }
+
+impl PackageRequest {
+    pub fn warehouse(&self) -> i32 {
+        self.warehouse
+    }
+}
+
 impl Package{
     pub fn from_request(request: PackageRequest) ->Package {
         Package{

@@ -68,7 +68,13 @@ pub struct TruckRequest{
     fuel_by_kilometer:f32,
     weight_capacity:f32,
     volume_capacity:f32,
-    pub warehouse:i32
+    warehouse:i32
+}
+
+impl TruckRequest {
+    pub fn warehouse(&self) -> i32 {
+        self.warehouse
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

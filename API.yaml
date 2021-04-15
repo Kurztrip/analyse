@@ -688,8 +688,6 @@ definitions:
       - "volume"
       - "weight"
       - "destination"
-      - "receiver"
-      - "sender"
       - "warehouse"
     properties:
       id:
@@ -705,10 +703,6 @@ definitions:
           format: "float"
         minItems: 2
         maxItems: 2
-      receiver:
-        type: "string"
-      sender:
-        type: "string"
       warehouse:
         type: "integer"
         format: "int32"

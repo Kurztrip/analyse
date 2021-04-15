@@ -9,13 +9,13 @@ pub fn get_truck(conn:DBConnection, id:i32)->Result<Truck,LogicError>{
     trucks::get(&conn, id )
 }
 pub fn add_truck(conn:DBConnection, truck:TruckRequest)->Result<Truck,LogicError>{
-    if let Err(LogicError::NotFound) = warehouses::get(&conn,truck.clone().warehouse){
+    if let Err(LogicError::NotFound) = warehouses::get(&conn,truck.clone().warehouse()){
         return Err(LogicError::InvalidWarehouse)
     }
     trucks::add(&conn, Truck::from_request(truck))
 }
 pub fn update_truck(conn:DBConnection, truck:TruckRequest, id:i32)->Result<Truck,LogicError>{
-    if let Err(LogicError::NotFound) = warehouses::get(&conn,truck.clone().warehouse){
+    if let Err(LogicError::NotFound) = warehouses::get(&conn,truck.clone().warehouse()){
         return Err(LogicError::InvalidWarehouse)
     }
     trucks::update(&conn, Truck::from_request(truck), id)
