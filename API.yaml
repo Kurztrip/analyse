@@ -89,7 +89,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Truck"
         '404':
@@ -125,7 +125,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Truck"
         '400':
@@ -165,7 +165,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             type: "integer"
             example: 1
@@ -205,7 +205,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             $ref: "#/definitions/Truck"
         '400':
@@ -228,6 +228,47 @@ paths:
               reason:
                 type: "string"
                 example: Not Found
+  /trucks/{id}/end-route:
+    put:
+      tags:
+        - "Trucks"
+      summary: "releases a trucks"
+      description: ""
+      operationId: "releaseTruck"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of truck to release"
+          required: true
+          type: "integer"
+          format: "int64"
+      produces:
+        - "application/json"
+      responses:
+        '200':
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Truck"
+        '406':
+          description: The selected truck is not in route
+          schema:
+            properties:
+              state:
+                type: "string"
+                example: "error"
+              reason:
+                type: "string"
+                example: The selected truck is not in route
+        '404':
+          description: Truck not found
+          schema:
+            properties:
+              state:
+                type: "string"
+                example: "error"
+              reason:
+                type: "string"
+                example: Not Found
   /packages:
     get:
       tags:
@@ -239,7 +280,7 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             type: array
             items:
@@ -573,12 +614,39 @@ paths:
         - "application/json"
       responses:
         '200':
-          description: "Succesful operation"
+          description: "Successful operation"
           schema:
             type: array
             items:
               $ref: "#/definitions/Package"
-
+  /warehouse/<id>/create-route:
+    get:
+      tags:
+        - "Warehouses"
+      summary: "Selects a truck and creates a route to deliver packages"
+      description: ""
+      operationId: "createRouteForWarehouse"
+      produces:
+        - "application/json"
+      responses:
+        '200':
+          description: "Successful operation"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Package"
+        '406':
+          description: "There are not available trucks"
+          schema:
+            properties:
+              state:
+                type: "string"
+                example: "error"
+              reason:
+                type: "string"
+                example: There are not available trucks
+              
+    
 definitions:
   Truck:
     type: "object"
