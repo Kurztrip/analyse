@@ -4,6 +4,8 @@ use crate::controllers::responses::ApiResponse;
 use crate::data::warehouse_models::WarehouseRequest;
 use crate::logic::{warehouses,routes};
 use rocket_contrib::json;
+use crate::data::truck_models::TruckRequest;
+
 #[get("/<id>")]
 pub fn get_warehouse(conn:DBConnection, id:usize)->ApiResponse{
     match warehouses::get_warehouse(conn, id as i32){
@@ -53,9 +55,9 @@ pub fn delete_warehouse(conn:DBConnection, id:usize)->ApiResponse{
         Err(err)=>ApiResponse::from(err)
     }
 }
-#[get("/<id>/create-route")]
-pub fn create_routes(conn:DBConnection, id:usize)->ApiResponse{
-    match routes::generate_route(&conn,id as i32){
+#[post("/<id>/create-route", data="<truck>")]
+pub fn create_routes(conn:DBConnection, id:usize, truck:Json<TruckRequest>)->ApiResponse{
+    match routes::generate_route(&conn,id as i32, truck.into_inner()){
         Ok(truck)=>ApiResponse::ok(json!(truck)),
         Err(err)=>ApiResponse::from(err)
     }

@@ -3,7 +3,7 @@ info:
   description: "This API takes information abour Warehouses, trucks and packages for the creation of routes"
   title: Kurztrip Analyse
   version: '1.0'
-host: localhost:8000
+host: 52.23.166.119
 schemes:
   - http
 basePath: /
@@ -587,13 +587,20 @@ paths:
               reason:
                 type: "string"
                 example: Not Found
-  /warehouses/<id>/trucks:
+  /warehouses/{id}/trucks:
     get:
       tags:
         - "Warehouses"
       summary: "Returns all the Trucks in a Warehouse"
       description: ""
       operationId: "findTrucksInWarehouse"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of warehouse"
+          required: true
+          type: "integer"
+          format: "int64"
       produces:
         - "application/json"
       responses:
@@ -603,13 +610,20 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Truck"
-  /warehouses/<id>/packages:
+  /warehouses/{id}/packages:
     get:
       tags:
         - "Warehouses"
       summary: "Finds all the packages in a warehouse"
       description: ""
       operationId: "findPackagesInWarehouse"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of warehouse"
+          required: true
+          type: "integer"
+          format: "int64"
       produces:
         - "application/json"
       responses:
@@ -619,13 +633,20 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Package"
-  /warehouse/<id>/create-route:
+  /warehouse/{id}/create-route:
     get:
       tags:
         - "Warehouses"
       summary: "Selects a truck and creates a route to deliver packages"
       description: ""
       operationId: "createRouteForWarehouse"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of warehouse"
+          required: true
+          type: "integer"
+          format: "int64"
       produces:
         - "application/json"
       responses:

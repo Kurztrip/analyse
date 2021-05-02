@@ -63,11 +63,13 @@ impl Truck {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TruckRequest{
     id:i32,
+    fuel:f32,
     fuel_capacity:f32,
     fuel_type:FuelType,
     fuel_by_kilometer:f32,
     weight_capacity:f32,
     volume_capacity:f32,
+    state:State,
     warehouse:i32
 }
 
@@ -105,13 +107,13 @@ impl Truck{
             id:request.id,
             packages:vec![],
             route:vec![],
-            fuel:request.fuel_capacity,
+            fuel:request.fuel,
             fuel_capacity:request.fuel_capacity,
             fuel_type:request.fuel_type,
             fuel_by_kilometer:request.fuel_by_kilometer,
             weight_capacity:request.weight_capacity,
             volume_capacity:request.volume_capacity,
-            state:State::Available,
+            state:request.state,
             warehouse:request.warehouse
         }
     }

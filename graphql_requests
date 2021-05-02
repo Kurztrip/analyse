@@ -1,0 +1,90 @@
+mutation{
+  createAnalyseTruck(truck:{
+  id: 10,
+  fuel_capacity: 600.0,
+  fuel_type: "Gasoline",
+  fuel_by_kilometer: 3.0,
+  weight_capacity: 300.0,
+  volume_capacity: 15.0,
+  warehouse: 2    
+  }){
+	id
+        packages{
+          id
+        }
+        route
+        fuel
+        fuel_capacity
+        fuel_type
+        fuel_by_kilometer
+        weight_capacity
+        volume_capacity
+        state
+        warehouse
+  }
+}
+# Write your query or mutation here
+mutation{
+  updateAnalyseTruck(id:10,truck:{
+  id: 10,
+  fuel_capacity: 700.0,
+  fuel_type: "Gasoline",
+  fuel_by_kilometer: 3.0,
+  weight_capacity: 300.0,
+  volume_capacity: 15.0,
+  warehouse: 2
+  }){
+		id
+    packages{
+      id
+    }
+    route
+    fuel
+    fuel_capacity
+    fuel_type
+    fuel_by_kilometer
+    weight_capacity
+    volume_capacity
+    state
+    warehouse
+  }
+}
+mutation{
+  deleteAnalyseTruck(id:9)
+}
+mutation{
+  updateAnalysePackage(id:10,new_package:{
+  	id: 10,
+  	volume:500.0
+    weight:400.0
+    destination:[50.0,30.5]
+    warehouse: 2
+  }){
+		id
+    volume
+    weight
+    destination
+    warehouse
+  }
+}
+mutation{
+  deleteAnalysePackage(id:10)
+}
+mutation{
+  createAnalyseWarehouse(warehouse:{
+  	id: 10,
+    location:[30.0,34.9]
+  }){
+		id
+    location
+  }
+}
+mutation{
+  updateAnalyseWarehouse(id:10,warehouse:{
+  	id: 10,
+    location:[30.5,34.9]
+  }){
+		id
+    location
+  }
+}
